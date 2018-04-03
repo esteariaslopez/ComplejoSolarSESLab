@@ -1,3 +1,4 @@
+//NTC
 //Cambiar el siguiente valor segun lo que dispongamos
 const float Rf = 9820;  //Resistencia fija, en ohms
 const float BETA = 3986.65;//3850;//3435; //Factor Beta del sensor
@@ -15,7 +16,7 @@ float promedioTemp;           //Variable destino para el promedio
 float Rt;                 //Resistencia calculada a partir del voltaje
 float Rt2;                //Resistencia calculada a partir del valor del ADC
 /////////////////////////////////////////////////
-//Constantes Sensor corriente
+//ACS
 float current;
 const int NC = 5;
 const int avgsizeC = 16;  //Tamaño del buffer de muestras
@@ -23,6 +24,7 @@ float ventanaCu[avgsizeC];   //Buffer de muestras
 float promedioCu;           //Variable destino para el promedio
 
 /////////////////////////////////////////////////
+//Millis Count
 unsigned long previousMillis = 0;        // will store last time LED was updated
 
 // constants won't change :
@@ -33,7 +35,7 @@ const long interval = 1000;           // interval at which to blink (millisecond
 #include <LiquidCrystal.h>
 
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 void setup() {
   //Inicializacion de puerto serie
   Serial.begin(115200);
