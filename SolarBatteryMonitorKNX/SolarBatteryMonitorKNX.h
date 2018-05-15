@@ -45,32 +45,20 @@ void IndexFun11(){
     byte TEMP_TL = Knx.read(11);
   };
 void IndexFun12(){
-    if (Knx.read(12)){
-        TimeBase = 60;
-      }else{
-        TimeBase = 1;
-        };
+    if (Knx.read(12)){TimeBase = 60;}
+    else{TimeBase = 1;};
    };
 void IndexFun13(){
-    if (Knx.read(13)){
-        Volt_CycSend = true;
-      }else{
-        Volt_CycSend = false;
-        };
+    if (Knx.read(13)){Volt_CycSend = true;digitalWrite(LED_BUILTIN, HIGH);}
+    else{Volt_CycSend = false;digitalWrite(LED_BUILTIN, LOW);};
    };
 void IndexFun14(){
-    if (Knx.read(14)){
-        Curr_CycSend = true;
-      }else{
-        Curr_CycSend = false;
-        };
+    if (Knx.read(14)){Curr_CycSend = true;}
+    else{Curr_CycSend = false;};
    };
 void IndexFun15(){
-    if (Knx.read(15)){
-        Temp_CycSend = true;
-      }else{
-        Temp_CycSend = false;
-        };
+    if (Knx.read(15)){Temp_CycSend = true;}
+    else{Temp_CycSend = false;};
    };
 /////////END INDEX FUNCTIONS//////////////////
 #endif // SOLARBATTERYMONITORKNX_H
