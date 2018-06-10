@@ -12,6 +12,16 @@
 #include <math.h>
 
 ////////GLOBAL VARIABLES//////////////////
+///Definicion de pines/////
+const int batVoltPIN = 0;
+const int batCurrPIN = 1;
+const int batTempPIN = 2;
+
+const int panVoltPIN = 8;
+const int panCurrPIN = 9;
+const int panTempPIN = 10;
+const int panIrradPIN = 11;
+
 /////BATERIA//////////////////
 double batVOLTAGE = 0;  //VALOR FISICO DE VOLTAJE EN BATERIA
 double batCURRENT = 0;  //VALOR FISICO DE CORRIENTE EN BATERIA
@@ -441,7 +451,7 @@ void batRead_Volt()
   double voltageAv; 
 //  if (voltage<0){voltage=0;}
   for (int i=0; i<10;i++){
-    int sensorValue = analogRead(1);
+    int sensorValue = analogRead(batVoltPIN);
     double voltage = sensorValue*0.0518-0.2864; //Curva de mejor ajuste Bateria 28_05_2018  
     voltageAv = voltageAv+voltage;
   }
@@ -460,7 +470,7 @@ void batRead_Curr()
     double CurrentAv;
     for (int i=0; i<10;i++)
     { 
-      int sensorValue = analogRead(0);
+      int sensorValue = analogRead(batCurrPIN);
       double Current = (sensorValue*0.2767-141.3853)*0.9951+0.4097;//  100A 28/05/2018
       CurrentAv = Current+CurrentAv;
     }
@@ -478,7 +488,7 @@ void batRead_Temp()
   double TempAv;
   for (int i=0; i<10;i++)
   { 
-  int sensorValue = analogRead(2);
+  int sensorValue = analogRead(batTempPIN);
   //Segunda opcion para convertir a resistencia sin pasar por el voltaje
   double Rt2 = -((sensorValue * batRf) / (sensorValue - 1023));
   //Calculo final de temperatura
@@ -503,7 +513,7 @@ void panRead_Volt()
   double voltageAv;
   for (int i=0; i<10;i++)
   { 
-    int sensorValue = analogRead(9);
+    int sensorValue = analogRead(panVoltPIN);
     double voltage = sensorValue*0.0526-0.2545; //Curva de mejor ajuste Panel 28_05_2018
     voltageAv=voltageAv+voltage;
   }
@@ -516,7 +526,7 @@ void panRead_Curr()
   double CurrentAv;
   for (int i=0; i<10;i++)
   { 
-    int sensorValue = analogRead(8);
+    int sensorValue = analogRead(panCurrPIN);
     double Current = (sensorValue*0.0508-26.9287)*0.9653+0.8379;// 20A 28/05/2018
     CurrentAv=CurrentAv+Current;
   }
