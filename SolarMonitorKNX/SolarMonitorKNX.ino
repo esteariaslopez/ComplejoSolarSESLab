@@ -6,7 +6,6 @@
 
 #include "Arduino.h"
 #include <KnxDevice.h>
-//#include <SolarBatteryMonitorKNX.h>
 #include <Event.h>
 #include <Timer.h>
 #include <math.h>
@@ -42,8 +41,8 @@ boolean batTemp_CycSend = false; //Envio ciclico del valor de temperatura
 ////PANEL SOLAR/////////////
 double panVOLTAGE = 0; //VALOR FISICO DE VOLTAJE EN EL PANEL
 double panCURRENT = 0; //VALOR FISICO DE CORRIENTE EN EL PANEL
-double panTEMP = 40;  //VALOR FISICO DE TEMPERATURA EN EL PANEL
-double panIRRAD = 1000;   //VALOR FISICO DE IRRADIANCIA EN EL PANEL
+double panTEMP = 0;  //VALOR FISICO DE TEMPERATURA EN EL PANEL
+double panIRRAD = 0;   //VALOR FISICO DE IRRADIANCIA EN EL PANEL
 int panTimeBaseM = 100;   //MULTIPLICADOR DE BASE DE TIEMPO DE LECTURA DEL PANEL
 int panTimeBase = 1;      //BASE DE TIEMPO DE LECTURA DEL PANEL
 
@@ -76,31 +75,31 @@ unsigned long panpreviousMillis =0; //UTILIZADO PARA LECTURA DE VALORES EN PANEL
 //////////COMUNICATION OBJECT
 KnxComObject KnxDevice::_comObjectsList[] = 
 {
- /* Index 0 : */KnxComObject(G_ADDR(0, 0, 201), KNX_DPT_9_001 /*9.021 DPT_Value_Volt*/     , COM_OBJ_SENSOR  /* CRT */),// Voltaje Bateria
- /* Index 1 : */KnxComObject(G_ADDR(0, 0, 202), KNX_DPT_9_001 /*9.021 DPT_Value_Curr*/     , COM_OBJ_SENSOR /* CRT */), // Corriente Bateria
- /* Index 2 : */KnxComObject(G_ADDR(0, 0, 203), KNX_DPT_9_001 /*9.001 DPT_Value_Temp*/     , COM_OBJ_SENSOR /* CRT */), // Temperatura Bateria
- /* Index 3 : */KnxComObject(G_ADDR(0, 0, 204), KNX_DPT_1_005 /*1.005 DPT_Alarm*/          , COM_OBJ_SENSOR /* CRT */), // Volt Alarma Bateria
- /* Index 4 : */KnxComObject(G_ADDR(0, 0, 205), KNX_DPT_1_005 /*1.005 DPT_Alarm*/          , COM_OBJ_SENSOR /* CRT */), // Curr Alarma Bateria
- /* Index 5:  */KnxComObject(G_ADDR(0, 0, 206), KNX_DPT_1_005 /*1.005 DPT_Alarm*/          , COM_OBJ_SENSOR /* CRT */), // Temp Alarma Bateria
- /* Index 6 : */KnxComObject(G_ADDR(0, 0, 207), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/  , 0x28 /* CRW */),           // Volt threshold Bateria
- /* Index 7 : */KnxComObject(G_ADDR(0, 0, 208), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/  , 0x28 /* CRW */),           // Curr threshold Bateria
- /* Index 8 : */KnxComObject(G_ADDR(0, 0, 209), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/  , 0x28 /* CRW */),           // Temp threshold Bateria
- /* Index 9: */KnxComObject(G_ADDR(0, 0, 210), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/ , 0x28 /* CRW */),           // Voltage Cyclical Send Active Bateria
- /* Index 10: */KnxComObject(G_ADDR(0, 0, 211), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Current Cyclical Send Active Bateria
- /* Index 11: */KnxComObject(G_ADDR(0, 0, 212), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Temp Cyclical Send Active  Bateria
- /* Index 12: */KnxComObject(G_ADDR(0, 0, 213), KNX_DPT_1_006 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Base Time (0->1s, 1->1min) Bateria
- /* Index 13: */KnxComObject(G_ADDR(0, 0, 214), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/ , 0x28 /* CRW */),           // Multiplicador de tiempo Bateria
+ /* Index 0 : */KnxComObject(G_ADDR(0, 1, 201), KNX_DPT_9_001 /*9.021 DPT_Value_Volt*/     , COM_OBJ_SENSOR  /* CRT */),// Voltaje Bateria
+ /* Index 1 : */KnxComObject(G_ADDR(0, 1, 202), KNX_DPT_9_001 /*9.021 DPT_Value_Curr*/     , COM_OBJ_SENSOR /* CRT */), // Corriente Bateria
+ /* Index 2 : */KnxComObject(G_ADDR(0, 1, 203), KNX_DPT_9_001 /*9.001 DPT_Value_Temp*/     , COM_OBJ_SENSOR /* CRT */), // Temperatura Bateria
+ /* Index 3 : */KnxComObject(G_ADDR(0, 1, 204), KNX_DPT_1_005 /*1.005 DPT_Alarm*/          , COM_OBJ_SENSOR /* CRT */), // Volt Alarma Bateria
+ /* Index 4 : */KnxComObject(G_ADDR(0, 1, 205), KNX_DPT_1_005 /*1.005 DPT_Alarm*/          , COM_OBJ_SENSOR /* CRT */), // Curr Alarma Bateria
+ /* Index 5:  */KnxComObject(G_ADDR(0, 1, 206), KNX_DPT_1_005 /*1.005 DPT_Alarm*/          , COM_OBJ_SENSOR /* CRT */), // Temp Alarma Bateria
+ /* Index 6 : */KnxComObject(G_ADDR(0, 1, 207), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/  , 0x28 /* CRW */),           // Volt threshold Bateria
+ /* Index 7 : */KnxComObject(G_ADDR(0, 1, 208), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/  , 0x28 /* CRW */),           // Curr threshold Bateria
+ /* Index 8 : */KnxComObject(G_ADDR(0, 1, 209), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/  , 0x28 /* CRW */),           // Temp threshold Bateria
+ /* Index 9: */KnxComObject(G_ADDR(0, 1, 210), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/ , 0x28 /* CRW */),           // Voltage Cyclical Send Active Bateria
+ /* Index 10: */KnxComObject(G_ADDR(0, 1, 211), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Current Cyclical Send Active Bateria
+ /* Index 11: */KnxComObject(G_ADDR(0, 1, 212), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Temp Cyclical Send Active  Bateria
+ /* Index 12: */KnxComObject(G_ADDR(0, 1, 213), KNX_DPT_1_006 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Base Time (0->1s, 1->1min) Bateria
+ /* Index 13: */KnxComObject(G_ADDR(0, 1, 214), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/ , 0x28 /* CRW */),           // Multiplicador de tiempo Bateria
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- /* Index 14 : */KnxComObject(G_ADDR(0, 1, 201), KNX_DPT_9_001 /*9.021 DPT_Value_Volt*/    , COM_OBJ_SENSOR  /* CRT */),// Voltaje Panel
- /* Index 15 : */KnxComObject(G_ADDR(0, 1, 202), KNX_DPT_9_001 /*9.021 DPT_Value_Curr*/    , COM_OBJ_SENSOR /* CRT */), // Corriente Panel
- /* Index 16 : */KnxComObject(G_ADDR(0, 1, 203), KNX_DPT_9_001 /*9.001 DPT_Value_Temp*/    , COM_OBJ_SENSOR /* CRT */), // Temperatura Panel
- /* Index 17 : */KnxComObject(G_ADDR(0, 1, 204), KNX_DPT_9_001 /*9.001 DPT_Value_Temp*/    , COM_OBJ_SENSOR /* CRT */), // Irradiancia Panel
- /* Index 18 : */KnxComObject(G_ADDR(0, 1, 205), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Voltage Cyclical Send Active panel
- /* Index 19 : */KnxComObject(G_ADDR(0, 1, 206), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Current Cyclical Send Active panel
- /* Index 20 : */KnxComObject(G_ADDR(0, 1, 207), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Temp Cyclical Send Active panel
- /* Index 21 : */KnxComObject(G_ADDR(0, 1, 208), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Irradiancia Cyclical Send Active panel
- /* Index 22 : */KnxComObject(G_ADDR(0, 1, 209), KNX_DPT_1_006 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Base Time (0->1s, 1->1min) panel
- /* Index 23 : */KnxComObject(G_ADDR(0, 1, 210), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/ , 0x28 /* CRW */)           // Multiplicador de tiempo panel
+ /* Index 14 : */KnxComObject(G_ADDR(1, 1, 201), KNX_DPT_9_001 /*9.021 DPT_Value_Volt*/    , COM_OBJ_SENSOR  /* CRT */),// Voltaje Panel
+ /* Index 15 : */KnxComObject(G_ADDR(1, 1, 202), KNX_DPT_9_001 /*9.021 DPT_Value_Curr*/    , COM_OBJ_SENSOR /* CRT */), // Corriente Panel
+ /* Index 16 : */KnxComObject(G_ADDR(1, 1, 203), KNX_DPT_9_001 /*9.001 DPT_Value_Temp*/    , COM_OBJ_SENSOR /* CRT */), // Temperatura Panel
+ /* Index 17 : */KnxComObject(G_ADDR(1, 1, 204), KNX_DPT_9_001 /*9.001 DPT_Value_Temp*/    , COM_OBJ_SENSOR /* CRT */), // Irradiancia Panel
+ /* Index 18 : */KnxComObject(G_ADDR(1, 1, 205), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Voltage Cyclical Send Active panel
+ /* Index 19 : */KnxComObject(G_ADDR(1, 1, 206), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Current Cyclical Send Active panel
+ /* Index 20 : */KnxComObject(G_ADDR(1, 1, 207), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Temp Cyclical Send Active panel
+ /* Index 21 : */KnxComObject(G_ADDR(1, 1, 208), KNX_DPT_1_001 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Irradiancia Cyclical Send Active panel
+ /* Index 22 : */KnxComObject(G_ADDR(1, 1, 209), KNX_DPT_1_006 /*1.006 B1 DPT_BinaryValue*/, 0x28 /* CRW */),           // Base Time (0->1s, 1->1min) panel
+ /* Index 23 : */KnxComObject(G_ADDR(1, 1, 210), KNX_DPT_9_001 /*5.004 U8 DPT_Percent_U8*/ , 0x28 /* CRW */)           // Multiplicador de tiempo panel
 }; 
 
 const byte KnxDevice::_comObjectsNb = sizeof(_comObjectsList) / sizeof(KnxComObject); // do no change this code
@@ -480,7 +479,7 @@ void batRead_Curr()
   Serial.println();
   if (!batCURR_ALARM && (batCURRENT >= batCURR_TH)){batCURR_ALARM=true; } //send Over Voltage Alarm 
   else{if (batCURR_ALARM && (batCURRENT < batCURR_TH) ){batCURR_ALARM=false; } }
-  Knx.write(4,batCURR_ALARM);Serial.print("CurrAlarm:");Serial.println(batCURR_ALARM);
+  Knx.write(4,batCURR_ALARM);Serial.print("CurrAlarm:");Serial.print(batCURR_ALARM);
 }
 //////LECTURA DE TEMPERATURA////////
 void batRead_Temp()
@@ -501,7 +500,7 @@ void batRead_Temp()
   /////////////TEMPERATURE ALARM/////////////////////////////////////////
   if (!batTEMP_ALARM && (batTEMP >= batTEMP_TH)){batTEMP_ALARM=true; } 
   else{if (batTEMP_ALARM && (batTEMP < batTEMP_TH) ){batTEMP_ALARM=false; } }
-  Knx.write(5,batTEMP_ALARM);Serial.print("TempAlarm:");Serial.println(batTEMP_ALARM);
+  Knx.write(5,batTEMP_ALARM);Serial.print("TempAlarm:");Serial.print(batTEMP_ALARM);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -536,12 +535,18 @@ void panRead_Curr()
 ////////LECTURA DE TEMPERATURA////////
 void panRead_Temp()
 {
-
+  int sensorValue = analogRead(panTempPIN);
+  double temp = sensorValue*0.087037037-9; //pt1000
+  panTEMP = temp;
 }
 ////////LECTURA DE IRRADIANCIA////////
 void panRead_Irrad()
 {
+    int sensorValue = analogRead(panIrradPIN);
+    double voltage = sensorValue*0.1421; //Curva de mejor ajuste IRRADIANCIA    
+    double Irrad = voltage*12.69;
 
+    panIRRAD = Irrad;
 }
 
 
