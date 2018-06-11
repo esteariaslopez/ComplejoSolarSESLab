@@ -451,7 +451,7 @@ void batRead_Volt()
 //  if (voltage<0){voltage=0;}
   for (int i=0; i<10;i++){
     int sensorValue = analogRead(batVoltPIN);
-    double voltage = sensorValue*0.0518-0.2864; //Curva de mejor ajuste Bateria 28_05_2018  
+    double voltage = sensorValue*0.0524+0.1499; //Curva de mejor ajuste Bateria 28_05_2018  
     voltageAv = voltageAv+voltage;
   }
   voltageAv=voltageAv/10;
@@ -470,7 +470,7 @@ void batRead_Curr()
     for (int i=0; i<10;i++)
     { 
       int sensorValue = analogRead(batCurrPIN);
-      double Current = (sensorValue*0.2767-141.3853)*0.9951+0.4097;//  100A 28/05/2018
+      double Current = (sensorValue*0.2867-139.5857);//  100A 28/05/2018
       CurrentAv = Current+CurrentAv;
     }
     CurrentAv=CurrentAv/10;
@@ -513,7 +513,7 @@ void panRead_Volt()
   for (int i=0; i<10;i++)
   { 
     int sensorValue = analogRead(panVoltPIN);
-    double voltage = sensorValue*0.0526-0.2545; //Curva de mejor ajuste Panel 28_05_2018
+    double voltage = sensorValue*0.0532+0.1918; //Curva de mejor ajuste Panel 28_05_2018
     voltageAv=voltageAv+voltage;
   }
     voltageAv=voltageAv/10;
@@ -526,7 +526,7 @@ void panRead_Curr()
   for (int i=0; i<10;i++)
   { 
     int sensorValue = analogRead(panCurrPIN);
-    double Current = (sensorValue*0.0508-26.9287)*0.9653+0.8379;// 20A 28/05/2018
+    double Current = (sensorValue*0.0511-24.9496);// 20A 28/05/2018
     CurrentAv=CurrentAv+Current;
   }
     CurrentAv=CurrentAv/10;
