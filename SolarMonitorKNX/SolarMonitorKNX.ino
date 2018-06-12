@@ -467,14 +467,14 @@ void batRead_Volt()
 void batRead_Curr()
 {
     double CurrentAv;
-    for (int i=0; i<10;i++)
-    { 
+//    for (int i=0; i<10;i++)
+//    { 
       int sensorValue = analogRead(batCurrPIN);
-      double Current = (sensorValue*0.2867-139.5857);//  100A 28/05/2018
-      CurrentAv = Current+CurrentAv;
-    }
+      double Current = (sensorValue*0.2867-138.5857);//  100A 28/05/2018
+//      CurrentAv = Current+CurrentAv;
+//    }
     CurrentAv=CurrentAv/10;
-    batCURRENT = CurrentAv;
+    batCURRENT = Current;
 //CHECK ALARMA////
   Serial.println();
   if (!batCURR_ALARM && (batCURRENT >= batCURR_TH)){batCURR_ALARM=true; } //send Over Voltage Alarm 
