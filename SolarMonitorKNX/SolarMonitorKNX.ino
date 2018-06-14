@@ -43,12 +43,12 @@ double panVOLTAGE = 0; //VALOR FISICO DE VOLTAJE EN EL PANEL
 double panCURRENT = 0; //VALOR FISICO DE CORRIENTE EN EL PANEL
 double panTEMP = 0;  //VALOR FISICO DE TEMPERATURA EN EL PANEL
 double panIRRAD = 0;   //VALOR FISICO DE IRRADIANCIA EN EL PANEL
-int panTimeBaseM = 100;   //MULTIPLICADOR DE BASE DE TIEMPO DE LECTURA DEL PANEL
+int panTimeBaseM = 1;   //MULTIPLICADOR DE BASE DE TIEMPO DE LECTURA DEL PANEL
 int panTimeBase = 1;      //BASE DE TIEMPO DE LECTURA DEL PANEL
 
 boolean panVolt_CycSend = false; //Envio ciclico del valor de tension
 boolean panCurr_CycSend = false; //Envio ciclico del valor de corriente
-boolean panTemp_CycSend = false; //Envio ciclico del valor de temperatura
+boolean panTemp_CycSend = true; //Envio ciclico del valor de temperatura
 boolean panIrrad_CycSend = false; //Envio ciclico del valor de irradiancia
 
 /////////////////////////////////////////////////
@@ -110,123 +110,99 @@ void knxEvents( byte index )
  switch ( index )
  {
  case 0: // OBJETO INDEX 0 HA SIDO ACTUALIZADO
-    Serial.println("Index 0");
     IndexFun0();
  break;
  
  case 1: // OBJETO INDEX 1 HA SIDO ACTUALIZADO
-    Serial.println("Index 1");
     IndexFun1();
  break;
  
  case 2: // OBJETO INDEX 2 HA SIDO ACTUALIZADO
-    Serial.println("Index 2");
     IndexFun2();
  break;
  
  case 3: // OBJETO INDEX 3 HA SIDO ACTUALIZADO
-    Serial.println("Index 3");
     IndexFun3();
  break;
  
  case 4: // OBJETO INDEX 4 HA SIDO ACTUALIZADO
-    Serial.println("Index 4");
     IndexFun4();
  break;
  
  case 5: // OBJETO INDEX 5 HA SIDO ACTUALIZADO
-    Serial.println("Index 5");
     IndexFun5();
  break;
  
  case 6: // OBJETO INDEX 6 HA SIDO ACTUALIZADO
-    Serial.println("Index 6");
     IndexFun6();
  break;
  
  case 7: // OBJETO INDEX 7 HA SIDO ACTUALIZADO
-    Serial.println("Index 7");
     IndexFun7();
  break;
  
  case 8: // OBJETO INDEX 8 HA SIDO ACTUALIZADO
-    Serial.println("Index 8");
     IndexFun8();
  break;
  
  case 9:   // OBJETO INDEX 9 HA SIDO ACTUALIZADO
-    Serial.println("Index 9");
     IndexFun9();
  break;
  
  case 10:  // OBJETO INDEX 10 HA SIDO ACTUALIZADO
-    Serial.println("Index 10");
     IndexFun10();
  break;
  
  case 11:  // OBJETO INDEX 11 HA SIDO ACTUALIZADO
-    Serial.println("Index 11");
     IndexFun11();
  break;
  
  case 12:  // OBJETO INDEX 12 HA SIDO ACTUALIZADO
-    Serial.println("Index 12");
     IndexFun12();
  break;
 
  case 13: //  // OBJETO INDEX 13 HA SIDO ACTUALIZADO
-    Serial.println("Index 13");
     IndexFun13();
  break;
 ////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////
   case 14:  // OBJETO INDEX 14 HA SIDO ACTUALIZADO
-    Serial.println("Index 14");
     IndexFun14();
  break;
  
  case 15:  // OBJETO INDEX 15 HA SIDO ACTUALIZADO
-    Serial.println("Index 15");
     IndexFun15();
  break;
  
  case 16:  // OBJETO INDEX 16 HA SIDO ACTUALIZADO
-    Serial.println("Index 16");
     IndexFun16();
  break;
  
  case 17:  // OBJETO INDEX 17 HA SIDO ACTUALIZADO
-    Serial.println("Index 17");
     IndexFun17();
  break;
  
  case 18:  // OBJETO INDEX 18 HA SIDO ACTUALIZADO
-    Serial.println("Index 18");
     IndexFun18();
  break;
  
  case 19: // OBJETO INDEX 19 HA SIDO ACTUALIZADO
-    Serial.println("Index 19");
     IndexFun19();
  break;
  
  case 20: // OBJETO INDEX 20 HA SIDO ACTUALIZADO
-    Serial.println("Index 20");
     IndexFun20();
  break;
  
  case 21: // OBJETO INDEX 21 HA SIDO ACTUALIZADO
-    Serial.println("Index 21");
     IndexFun21();
  break;
  
  case 22: /// OBJETO INDEX 22 HA SIDO ACTUALIZADO
-    Serial.println("Index 22");
     IndexFun22();
  break;
 
  case 23: // OBJETO INDEX 23 HA SIDO ACTUALIZADO
-    Serial.println("Index 23");
     IndexFun23();
  break;
  
@@ -241,22 +217,16 @@ void knxEvents( byte index )
 //ENVIA EL ULTIMO VALOR DE VOLTAJE LEIDO
 void IndexFun0(){
     Knx.write(0,batVOLTAGE);
-    Serial.print("Write to knx VOLTAGE: ");
-    Serial.println(batVOLTAGE);
   };
 
 //ENVIA EL ULTIMO VALOR DE CORRIENTE LEIDO
 void IndexFun1(){
     Knx.write(1,batCURRENT);
-    Serial.print("Write to knx CURRENT: ");
-    Serial.println(batCURRENT);
   };
   
 //ENVIA EL ULTIMO VALOR DE TEMPERATURA LEIDO
 void IndexFun2(){
     Knx.write(2,batTEMP);
-    Serial.print("Write to knx TEMP: ");
-    Serial.println(batTEMP);
   };
 
 //HACE NADA
@@ -277,130 +247,112 @@ void IndexFun5(){
 //ACTUALIZA EL VALOR UMBRAL DE VOLTAJE
 void IndexFun6(){
     Knx.read(6,batVOLT_TH);
-    Serial.print("Read from knx VOLT_TH: ");
-    Serial.println(batVOLT_TH);
   };
 
 //ACTUALIZA EL VALOR UMBRAL DE CORRIENTE
 void IndexFun7(){
     Knx.read(7,batCURR_TH);
-    Serial.print("Read from knx CURR_TH: ");
-    Serial.println(batCURR_TH);
   };
 
 //ACTUALIZA EL VALOR UMBRAL DE TEMPERATURA
 void IndexFun8(){
     Knx.read(8,batTEMP_TH);
-    Serial.print("Read from knx TEMP_TH: ");
-    Serial.println(batTEMP_TH);
   };
 
 //ACTIVA ENVIO CICLICO PARA VOLTAJE DE LA BATERIA
 void IndexFun9(){
-    if (Knx.read(9)){batVolt_CycSend = true; Serial.println("Bat Volt Cicl true");}
-    else{batVolt_CycSend = false; Serial.println("Bat Volt Cicl false");};
+    if (Knx.read(9)){batVolt_CycSend = true;}
+    else{batVolt_CycSend = false;};
    };
 
 //ACTIVA ENVIO CICLICO PARA CORRIENTE DE LA BATERIA
 void IndexFun10(){
-    if (Knx.read(10)){batCurr_CycSend = true; Serial.println("Bat Curr Cicl true");}
-    else{batCurr_CycSend = false; Serial.println("Bat Curr Cicl false");};
+    if (Knx.read(10)){batCurr_CycSend = true;}
+    else{batCurr_CycSend = false;};
    };
 
 //ACTIVA ENVIO CICLICO PARA TEMPERATURA DE LA BATERIA
 void IndexFun11(){
-    if (Knx.read(11)){batTemp_CycSend = true; Serial.println("Bat Temp Cicl true");}
-    else{batTemp_CycSend = false; Serial.println("Bat Temp Cicl false");};
+    if (Knx.read(11)){batTemp_CycSend = true;}
+    else{batTemp_CycSend = false;};
    };
 
 //ACTUALIZA LA BASE DE TIEMPO DE LA BATERIA
 void IndexFun12(){
-    if (Knx.read(12)){batTimeBase = 60; Serial.println("Bat TB = 1min");}
-    else{batTimeBase = 1;Serial.println("Bat TB = 1s");};
+    if (Knx.read(12)){batTimeBase = 60;}
+    else{batTimeBase = 1;};
    };
 
 //ACTUALZA EL MULTIPLICADOR DE TIEMPO DE LA BATERIA
 void IndexFun13(){
     Knx.read(13, batTimeBaseM);
-    Serial.print("BATTERY TB MULT: ");
-    Serial.println(batTimeBaseM);
    };
 //////PANEL FUNTIONS/////////////////////////
 
 //ENVIA EL ULTIMO VALOR DE VOLTAJE LEIDA
 void IndexFun14(){
     Knx.write(14,panVOLTAGE);
-    Serial.print("Write to knx VOLTAGE: ");
-    Serial.println(panVOLTAGE);
   };
 
 //ENVIA EL ULTIMO VALOR DE CORRIENTE LEIDA
 void IndexFun15(){
     Knx.write(15,panCURRENT);
-    Serial.print("Write to knx CURRENT: ");
-    Serial.println(panCURRENT);
   };
   
 //ENVIA EL ULTIMO VALOR DE TEMPERATURA LEIDA
 void IndexFun16(){
     Knx.write(16,panTEMP);
-    Serial.print("Write to knx TEMP: ");
-    Serial.println(panTEMP);
   };
 
 //ENVIA EL ULTIMO VALOR DE IRRADIANCIA LEIDA
 void IndexFun17(){
     Knx.write(17,panIRRAD); //irradiancia
-    Serial.print("Write to knx TEMP: ");
-    Serial.println(panIRRAD);
   };
 
 //ACTIVA ENVIO CICLICO PARA VOLTAJE DEL PANEL
 void IndexFun18(){
-    if (Knx.read(18)){panVolt_CycSend = true; Serial.println("Panel Volt Cicl true");}
-    else{panVolt_CycSend = false; Serial.println("Panel Volt Cicl false");};
+    if (Knx.read(18)){panVolt_CycSend = true;}
+    else{panVolt_CycSend = false;};
    };
 
 //ACTIVA ENVIO CICLICO PARA CORRIENTE DEL PANEL
 void IndexFun19(){
-    if (Knx.read(19)){panCurr_CycSend = true; Serial.println("Panel Curr Cicl true");}
-    else{panCurr_CycSend = false; Serial.println("Panel Curr Cicl false");};
+    if (Knx.read(19)){panCurr_CycSend = true;}
+    else{panCurr_CycSend = false;};
    };
 
 //ACTIVA ENVIO CICLICO PARA TEMPERATURA DEL PANEL
 void IndexFun20(){
-    if (Knx.read(20)){panTemp_CycSend = true; Serial.println("Panel Temp Cicl true");}
-    else{panTemp_CycSend = false; Serial.println("Panel Temp Cicl false");};
+    if (Knx.read(20)){panTemp_CycSend = true;}
+    else{panTemp_CycSend = false;};
    };
 
 //ACTIVA ENVIO CICLICO PARA IRRADIANCIA DEL PANEL
 void IndexFun21(){
-    if (Knx.read(21)){panIrrad_CycSend = true; Serial.println("Panel Irrad Cicl true");}
-    else{panIrrad_CycSend = false; Serial.println("Panel Irrad Cicl false");};
+    if (Knx.read(21)){panIrrad_CycSend = true;}
+    else{panIrrad_CycSend = false;};
    };
 
 //ACTUALIZA BASE DE TIEMPO PARA LECTURA DEL PANEL
 void IndexFun22(){
-    if (Knx.read(22)){panTimeBase = 60; Serial.println("Panel TB = 1min");}
-    else{panTimeBase = 1;Serial.println("Panel TB = 1s");};
+    if (Knx.read(22)){panTimeBase = 60;}
+    else{panTimeBase = 1;};
    };
 
 //ACTUALIZA EL MULTIPLICADOR DE BASE DE TIEMPO
 void IndexFun23(){
     Knx.read(23, panTimeBaseM);
-    Serial.print("Panel TB MULTI: ");
-    Serial.println(panTimeBaseM);
    };
 /////////END INDEX FUNCTIONS//////////////////
 ////SETUP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void setup()
 {
-  analogReference(EXTERNAL);
+  analogReference(EXTERNAL); //3.3V
   Serial.begin(115200);//
-  Serial.print("Program Started..");
-  while (Knx.begin(Serial1, P_ADDR(1,1,50)) == KNX_DEVICE_ERROR) {Serial.println("knx init ERROR");} ////CONEXION CON EL BUS KNX
-  Serial.println("knx bus started..."); 
-  t.every(60000, ReadBatSensors); //LECTURA DE LAS VARIABLES PARA ALARMAS T=60S
+  while (Knx.begin(Serial1, P_ADDR(1,1,50)) == KNX_DEVICE_ERROR) {} ////CONEXION CON EL BUS KNX
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LOW);
+  //t.every(60000, ReadBatSensors); //LECTURA DE LAS VARIABLES PARA ALARMAS T=60S
 }
 
 void loop()
@@ -419,24 +371,19 @@ void loop()
 }
 /////////KNX BUS UPDATE VALUES
 void BatUpdateValue(){
-    Serial.print("Bateria: ");
-    if (batVolt_CycSend){batRead_Volt(); Knx.write(0,batVOLTAGE);Serial.print("  Voltaje: ");Serial.print(batVOLTAGE);} //Send Cyclical Voltage
-    if (batCurr_CycSend){batRead_Curr(); Knx.write(1,batCURRENT);Serial.print("  Corriente: ");Serial.print(batCURRENT);} //Send Cyclical Current
-    if (batTemp_CycSend){batRead_Temp(); Knx.write(2,batTEMP);Serial.print("  Temp: ");Serial.print(batTEMP);} //Send Cyclical Temperature
-    Serial.println();
+    if (batVolt_CycSend){batRead_Volt(); Knx.write(0,batVOLTAGE);} //Send Cyclical Voltage
+    if (batCurr_CycSend){batRead_Curr(); Knx.write(1,batCURRENT);} //Send Cyclical Current
+    if (batTemp_CycSend){batRead_Temp(); Knx.write(2,batTEMP);} //Send Cyclical Temperature
   }
 void PanUpdateValue(){
-    Serial.print("Panel: ");
-    if (panVolt_CycSend) {panRead_Volt(); Knx.write(14,panVOLTAGE);Serial.print("  Voltaje ");Serial.print(panVOLTAGE);} //Send Cyclical Voltage
-    if (panCurr_CycSend) {panRead_Curr(); Knx.write(15,panCURRENT);Serial.print("  Corriente ");Serial.print(panCURRENT);} //Send Cyclical Current
-    if (panTemp_CycSend) {panRead_Temp(); Knx.write(16,panTEMP);Serial.print("  Temp ");Serial.print(panTEMP);} //Send Cyclical Temperature
-    if (panIrrad_CycSend){panRead_Irrad(); Knx.write(17,panIRRAD);Serial.print("  Irrad ");Serial.print(panIRRAD);} //Send Cyclical Temperature
-    Serial.println();
+    if (panVolt_CycSend) {panRead_Volt(); Knx.write(14,panVOLTAGE);} //Send Cyclical Voltage
+    if (panCurr_CycSend) {panRead_Curr(); Knx.write(15,panCURRENT);} //Send Cyclical Current
+    if (panTemp_CycSend) {panRead_Temp(); Knx.write(16,panTEMP);} //Send Cyclical Temperature
+    if (panIrrad_CycSend){panRead_Irrad(); Knx.write(17,panIRRAD);} //Send Cyclical Temperature
   }
 
 /////////READ SENSOR FOR ALARM////////////////////
 void ReadBatSensors(){
-    Serial.println("Check Alarms");
     batRead_Volt();
     batRead_Curr();
     batRead_Temp();
@@ -448,46 +395,48 @@ void ReadBatSensors(){
 void batRead_Volt()
 {
   double voltageAv; 
-//  if (voltage<0){voltage=0;}
+  int sensorValue;
   for (int i=0; i<10;i++){
-    int sensorValue = analogRead(batVoltPIN);
-    double voltage = sensorValue*0.0524+0.1499; //Curva de mejor ajuste Bateria 28_05_2018  
+    sensorValue = analogRead(batVoltPIN);
+    double voltage = sensorValue*0.0341+0.0716; //Curva de mejor ajuste Bateria 28_05_2018  
     voltageAv = voltageAv+voltage;
   }
   voltageAv=voltageAv/10;
   if (voltageAv<0){voltageAv=0;}
   batVOLTAGE = voltageAv;
+  //Serial.println(batVOLTAGE);
   ////////////////////////////////////////////////////////////////////
-  Serial.println();
-  if (!batVOLT_ALARM && (batVOLTAGE >= batVOLT_TH)){batVOLT_ALARM=true; } //send Over Voltage Alarm 
-  else{if (batVOLT_ALARM && (batVOLTAGE < batVOLT_TH) ){batVOLT_ALARM=false;} }
-  Knx.write(3,batVOLT_ALARM); Serial.print("VoltAlarm:");Serial.println(batVOLT_ALARM);
+//  if (!batVOLT_ALARM && (batVOLTAGE >= batVOLT_TH)){batVOLT_ALARM=true; } //send Over Voltage Alarm 
+//  else{if (batVOLT_ALARM && (batVOLTAGE < batVOLT_TH) ){batVOLT_ALARM=false;} }
+//  Knx.write(3,batVOLT_ALARM);
 }
 /////LECTURA DE CORRIENTE/////
 void batRead_Curr()
 {
     double CurrentAv;
-//    for (int i=0; i<10;i++)
-//    { 
-      int sensorValue = analogRead(batCurrPIN);
-      double Current = (sensorValue*0.2867-138.5857);//  100A 28/05/2018
-//      CurrentAv = Current+CurrentAv;
-//    }
+    int sensorValue;
+    for (int i=0; i<10;i++)
+    { 
+      sensorValue = analogRead(batCurrPIN);
+      double Current = (sensorValue*0.2917-148.9374);//  100A 28/05/2018
+      CurrentAv = Current+CurrentAv;
+    }
     CurrentAv=CurrentAv/10;
-    batCURRENT = Current;
+    batCURRENT = CurrentAv;
+    //Serial.println(batCURRENT);
 //CHECK ALARMA////
-  Serial.println();
   if (!batCURR_ALARM && (batCURRENT >= batCURR_TH)){batCURR_ALARM=true; } //send Over Voltage Alarm 
   else{if (batCURR_ALARM && (batCURRENT < batCURR_TH) ){batCURR_ALARM=false; } }
-  Knx.write(4,batCURR_ALARM);Serial.print("CurrAlarm:");Serial.print(batCURR_ALARM);
+  Knx.write(4,batCURR_ALARM);
 }
 //////LECTURA DE TEMPERATURA////////
 void batRead_Temp()
 {
   double TempAv;
+  int sensorValue;
   for (int i=0; i<10;i++)
   { 
-  int sensorValue = analogRead(batTempPIN);
+  sensorValue = analogRead(batTempPIN);
   //Segunda opcion para convertir a resistencia sin pasar por el voltaje
   double Rt2 = -((sensorValue * batRf) / (sensorValue - 1023));
   //Calculo final de temperatura
@@ -496,11 +445,12 @@ void batRead_Temp()
   }
   TempAv=TempAv/10;
   batTEMP = TempAv;
+  Serial.println(sensorValue);
   ///////////////////////////////////////////////////////////////////////
   /////////////TEMPERATURE ALARM/////////////////////////////////////////
   if (!batTEMP_ALARM && (batTEMP >= batTEMP_TH)){batTEMP_ALARM=true; } 
   else{if (batTEMP_ALARM && (batTEMP < batTEMP_TH) ){batTEMP_ALARM=false; } }
-  Knx.write(5,batTEMP_ALARM);Serial.print("TempAlarm:");Serial.print(batTEMP_ALARM);
+  Knx.write(5,batTEMP_ALARM);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -510,43 +460,56 @@ void batRead_Temp()
 void panRead_Volt()
 {   
   double voltageAv;
+  int sensorValue;
   for (int i=0; i<10;i++)
   { 
-    int sensorValue = analogRead(panVoltPIN);
-    double voltage = sensorValue*0.0532+0.1918; //Curva de mejor ajuste Panel 28_05_2018
+    sensorValue = analogRead(panVoltPIN);
+    double voltage = sensorValue*0.0348+0.0959; //Curva de mejor ajuste Panel 28_05_2018
     voltageAv=voltageAv+voltage;
   }
     voltageAv=voltageAv/10;
     panVOLTAGE = voltageAv;
+    //Serial.println(panVOLTAGE);
 }
 /////////////LECTURA DE CORRIENTE //////////////////////////////////////////
 void panRead_Curr()
 {   
   double CurrentAv;
+  int sensorValue;
   for (int i=0; i<10;i++)
   { 
-    int sensorValue = analogRead(panCurrPIN);
-    double Current = (sensorValue*0.0511-24.9496);// 20A 28/05/2018
+    sensorValue = analogRead(panCurrPIN);
+    double Current = (sensorValue*0.0508-25.3813);// 20A 28/05/2018
     CurrentAv=CurrentAv+Current;
   }
     CurrentAv=CurrentAv/10;
     panCURRENT = CurrentAv;
+    Serial.println(panCURRENT);
 }
 ////////LECTURA DE TEMPERATURA////////
 void panRead_Temp()
 {
-  int sensorValue = analogRead(panTempPIN);
-  double temp = sensorValue*0.087037037-9; //pt1000
-  panTEMP = temp;
+  int sensorValue;
+  double TempAv;
+  for (int i=0; i<10;i++)
+  { 
+    sensorValue = analogRead(panTempPIN);
+    double temp = sensorValue*0.06071443-11.91; //pt1000
+    TempAv = TempAv + temp;
+  }
+  TempAv = TempAv/10;
+  panTEMP = TempAv;
+  Serial.println(sensorValue);
 }
 ////////LECTURA DE IRRADIANCIA////////
 void panRead_Irrad()
 {
     int sensorValue = analogRead(panIrradPIN);
-    double voltage = sensorValue*0.1421; //Curva de mejor ajuste IRRADIANCIA    
+    double voltage = sensorValue*0.0915+3.5145; //Curva de mejor ajuste IRRADIANCIA    
     double Irrad = voltage*12.69;
 
     panIRRAD = Irrad;
+    //Serial.println(voltage);
 }
 
 
