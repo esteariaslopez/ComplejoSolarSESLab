@@ -1,0 +1,195 @@
+/*Type Name	 		Label	Data Type	symbol	Groups	Channel	*/
+
+Group Alarms		"Alarmas"			<error>
+Group Settings		"Configuracion" 	<settings>
+
+/*Building items*/
+Group Light		"Luces"							<light>
+Group Presence	"Presencia"						<motion>
+Group OutCond	"Condiciones Externas"			<sun_clouds>
+Group InCond	"Condiciones Internas"			<humidity>
+
+/*Building Parts*/
+Group Laboratory		"Laboratorio"			<keyring>
+Group Office			"Oficina"				<keyring>
+Group Pasillo			"Pasillo"				<corridor>
+Group ElectricRoom		"Cuarto Eléctrico"		<energy>
+Group Panelfield		"Área de Paneles"		<solarplant>
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*Battery Items*/
+Group Battery		"Bateria"	<battery>
+Group BatSettings	"Bateria"	<battery>	(Settings)
+Group BatAlarms		"Alarmas"	<error>
+
+/*VOLTAGE*/
+Group Bat_Volt_Chart
+Number batVolt			"Voltaje Batería [%.1f V]"		<energy>	(Battery, Bat_Volt_Chart) 				{knx="0/1/201"}
+Number Bat_Volt_Max         "Máximo de hoy [%.1f V]"    <energy> 	(Bat_Volt_Chart)
+Number Bat_Volt_Min         "Mínimo de hoy [%.1f V]"    <energy> 	(Bat_Volt_Chart)
+Number Bat_Volt_Chart_Period     "Periodo"
+DateTime Bat_Volt_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
+
+/*CURRENT*/
+Group Bat_Curr_Chart
+Number batCurr			"Corriente de la Batería [%.1f A]"		<flow>	(Battery, Bat_Curr_Chart)			{knx="0/1/202"}
+Number Bat_Curr_Max         "Máximo de hoy [%.1f A]"      		<flow> 	(Bat_Curr_Chart)
+Number Bat_Curr_Min         "Mínimo de hoy [%.1f A]"      		<flow> 	(Bat_Curr_Chart)
+Number Bat_Curr_Chart_Period     "Chart Period"
+DateTime Bat_Curr_LastUpdate     "Last Update [%1$ta %1$tR]"    <clock>
+
+/*TEMPERATURE*/
+Group Bat_Temp_Chart
+Number batTemp			"Temperatura de la Batería [%.1f °C]"	<temperature>	(Battery, Bat_Temp_Chart)	{knx="0/1/203"}
+Number Bat_Temp_Max         "Máximo de hoy [%.1f °C]"      		<temperature> 	(Bat_Temp_Chart)
+Number Bat_Temp_Min         "Mínimo de hoy [%.1f °C]"      		<temperature> 	(Bat_Temp_Chart)
+Number Bat_Temp_Chart_Period     "Chart Period"
+DateTime Bat_Temp_LastUpdate     "Last Update [%1$ta %1$tR]"    <clock>	
+
+/*ALARMS*/
+Switch batOverVolt	"Voltaje Bateria	"		<error>		(Alarms, BatAlarms)								{knx="0/1/204"}	
+Switch batOverCurr	"Corriente Bateria	"		<error>		(Alarms, BatAlarms)								{knx="0/1/205"}	
+Switch batOverTemp	"Temperatura Bateria "	<error>		(Alarms, BatAlarms)									{knx="0/1/206"}	
+
+/*SETTINGS*/
+Number batThAlarmVolt     "Disparador de Voltaje [%.1f ]"		<pressure>	(BatSettings)	 				{knx="0/1/207"}
+Number batThAlarmCurr     "Disparador de Corriente [%.1f ]"	<pressure>	(BatSettings)	 					{knx="0/1/208"}
+Number batThAlarmTemp     "Disparador de Temperatura [%.0f ]"	<pressure>	(BatSettings)	 				{knx="0/1/209"}
+
+Switch batColtCycSend	"Voltaje Bateria"		<switch>	(BatSettings)	 								{knx="0/1/210"}
+Switch batCurrCycSend	"Corriente Bateria"	<switch>	(BatSettings)	 									{knx="0/1/211"}
+Switch batTempCycSend	"Temperatura Bateria"	<switch>	(BatSettings)	 								{knx="0/1/212"}
+
+/*TIME SETTINGS*/
+Switch batTimeBase			"Tiempo Base(s/min)"	<time>	(BatSettings)	 								{knx="0/1/213"}
+Number batTimeBaseMulti     "Multiplicador [%.0f ]"		<time>	(BatSettings)	 							{knx="0/1/214"}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*Solar Panel Items*/
+Group SolarPanel	"Panel Solar"	<solarplant>
+Group PanSettings	"Panel Solar"	<solarplant>	(Settings)
+Group PanAlarms		"Alarmas"	<error>
+
+/*VOLTAGE*/
+Group Pan_Volt_Chart
+Number PanVolt			"Voltaje Panel Solar [%.1f V]"		<energy>	(SolarPanel, Pan_Volt_Chart)			{knx="1/1/201"}
+Number Pan_Volt_Max         "Máximo de hoy [%.1f V]"    <energy> 	(Pan_Volt_Chart)
+Number Pan_Volt_Min         "Mínimo de hoy [%.1f V]"    <energy> 	(Pan_Volt_Chart)
+Number Pan_Volt_Chart_Period     "Chart Period"
+DateTime Pan_Volt_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
+
+/*CURRENT*/
+Group Pan_Curr_Chart
+Number PanCurr			"Corriente del Panel Solar[%.1f A]"		<flow>	(SolarPanel, Pan_Curr_Chart)			{knx="1/1/202"}
+Number Pan_Curr_Max         "Máximo de hoy [%.1f A]"      		<flow> 	(Pan_Curr_Chart)
+Number Pan_Curr_Min         "Mínimo de hoy [%.1f A]"      		<flow> 	(Pan_Curr_Chart)
+Number Pan_Curr_Chart_Period     "Chart Period"
+DateTime Pan_Curr_LastUpdate     "Last Update [%1$ta %1$tR]"    <clock>
+
+/*TEMPERATURE*/
+Group Pan_Temp_Chart
+Number PanTemp			"Temperatura del Panel Solar [%.1f °C]"	<temperature>	(SolarPanel, Pan_Temp_Chart)	{knx="1/1/203"}
+Number Pan_Temp_Max         "Máximo de hoy [%.1f °C]"      		<temperature> 	(Pan_Temp_Chart)
+Number Pan_Temp_Min         "Mínimo de hoy [%.1f °C]"      		<temperature> 	(Pan_Temp_Chart)
+Number Pan_Temp_Chart_Period     "Chart Period"
+DateTime Pan_Temp_LastUpdate     "Last Update [%1$ta %1$tR]"    <clock>	
+
+/*IRRADIANCE*/
+Group Pan_Irrad_Chart
+Number PanIrrad					"Irradiancia Solar [%.1f kW/m2]"	<sun>	(SolarPanel,Pan_Irrad_Chart)		{knx="1/1/204"}
+Number Pan_Irrad_Max         "Máximo de hoy [%.1f kW/m2]"      		<sun> 	(Pan_Irrad_Chart)
+Number Pan_Irrad_Min         "Mínimo de hoy [%.1f kW/m2]"      		<sun> 	(Pan_Irrad_Chart)
+Number Pan_Irrad_Chart_Period     "Chart Period"
+DateTime Pan_Irrad_LastUpdate     "Last Update [%1$ta %1$tR]"    <clock>		
+
+/*SETTINGS*/
+Switch panColtCycSend	"Voltaje Panel Solar"		<switch>	(PanSettings)	 	{knx="1/1/205"}
+Switch panCurrCycSend	"Corriente Panel Solar"	<switch>	(PanSettings)	 		{knx="1/1/206"}
+Switch panTempCycSend	"Temperatura Panel Solar"	<switch>	(PanSettings)	 	{knx="1/1/207"}
+Switch panIrradCycSend	"Irradiacia Panel Solar"	<switch>	(PanSettings)	 	{knx="1/1/208"}
+Switch panTimeBase		"Tiempo Base (s/min)"	<time>	(PanSettings)	 			{knx="1/1/209"}
+Number panTimeBaseMulti     "Multiplicador [%.0f ]"		<time>	(BatSettings)		{knx="1/1/210"}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//INSIDE CONDITIONS//
+
+/*Inside Air Quality*/
+Group Inside_CO2_Chart
+Number Inside_CO2      	"Calidad del aire [%.0f ppm]" 	<carbondioxide> (Weather, Inside_CO2_Chart) 			{knx="2/1/1"}
+Number Inside_CO2_Max       	"Máximo de hoy [%.0f ppm]"		<carbondioxide>	(Weather, Inside_CO2_Chart)
+Number Inside_CO2_Min			"Mínimo de hoy [%.0f ppm]"      <carbondioxide>	(Weather, Inside_CO2_Chart)
+Number Inside_CO2_Chart_Period  "Chart Period"
+DateTime Inside_CO2_LastUpdate  "Last Update [%1$ta %1$tR]"     		<clock>
+
+/*Inside Temperature*/
+Group Inside_Temp_Chart
+Number Inside_Temperature      "Temperatura Interna [%.1f °C]" <temperature> (Weather, Inside_Temp_Chart) 		{knx="2/1/2"}
+Number Inside_Temp_Max         "Máximo de hoy [%.1f °C]"      <temperature> (Weather, Inside_Temp_Chart)
+Number Inside_Temp_Min         "Mínimo de hoy [%.1f °C]"      <temperature> (Weather, Inside_Temp_Chart)
+Number Inside_Temp_Chart_Period     "Chart Period"
+DateTime Inside_Temp_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
+
+/*Inside Humidity*/
+Group Inside_Hum_Chart
+Number Inside_Humidity      	"Humedad Relativa Interna [%.0f %%]" 	<humidity> (Weather, Inside_Hum_Chart) {knx="5.001:2/1/1"}
+Number Inside_Hum_Max       	"Máximo de hoy [%.0f %%]"				<humidity> (Weather, Inside_Hum_Chart)
+Number Inside_Hum_Min			"Mínimo de hoy [%.0f %%]"      			<humidity> (Weather, Inside_Hum_Chart)
+Number Inside_Hum_Chart_Period  "Chart Period"
+DateTime Inside_Hum_LastUpdate  "Last Update [%1$ta %1$tR]"     		<clock>
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//OUTSIDE CONDITIONS//
+/*Outside Temperature*/
+/*Outside light*/
+
+Group Outside_lux_Chart
+Number Outside_lux      	"Intensidad luminica [%.0f Lux]" 	<sun> (Weather, Outside_lux_Chart) 				{knx="3/0/0"}
+Number Outside_lux_Max       	"Máximo de hoy [%.0f Lux]"		<sun> (Weather, Outside_lux_Chart)
+Number Outside_lux_Min			"Mínimo de hoy [%.0f Lux]"      <sun> (Weather, Outside_lux_Chart)
+Number Outside_lux_Chart_Period  "Chart Period"
+DateTime Outside_lux_LastUpdate  "Last Update [%1$ta %1$tR]"     		<clock>
+
+Group Outside_Temp_Chart
+Number Outside_Temperature      "Temperatura Externa [%.1f °C]" <temperature> (Weather, Outside_Temp_Chart) 	{knx="3/0/1"}
+Number Outside_Temp_Max         "Máximo de hoy [%.1f °C]"      	<temperature> (Weather, Outside_Temp_Chart)
+Number Outside_Temp_Min         "Mínimo de hoy [%.1f °C]"      	<temperature> (Weather, Outside_Temp_Chart)
+Number Outside_Temp_Chart_Period     "Chart Period"
+DateTime Outside_Temp_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
+
+/*Outside wind speed*/
+Group Outside_windspeed_Chart
+Number Outside_windspeed      	"Velocidad del viento [%.0f m/s]" 	<wind> 	(Weather, Outside_windspeed_Chart) {knx="3/0/2"}
+Number Outside_windspeed_Max       	"Máximo de hoy [%.0f m/s]"		<wind>	(Weather, Outside_windspeed_Chart)
+Number Outside_windspeed_Min			"Mínimo de hoy [%.0f m/s]"  <wind>	(Weather, Outside_windspeed_Chart)
+Number Outside_windspeed_Chart_Period  "Chart Period"
+DateTime Outside_windspeed_LastUpdate  "Last Update [%1$ta %1$tR]"     		<clock>
+
+/*Rain*/
+Switch Outside_Rain		"Lluvia"	<rain>		(Weather)		{knx="3/0/3"}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*Lights*/
+Switch L_E01_01	"Luz en Laboratorio"		<light>	(Light, Laboratory)		{knx="4/1/0"}
+Switch L_E02_01	"Luz en Oficina"			<light>	(Light, Office)			{knx="4/2/1"}
+Switch L_E03_01	"Luz en Pasillo"			<light>	(Light, Pasillo)		{knx="4/2/2"}
+Switch L_E04_01	"Luz en Cuarto Eléctrico"	<light>	(Light, ElectricRoom)	{knx="4/2/3"}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*Lights*/
+Switch P_E01_01	"Presencia en Laboratorio"		<motion>	(Presence, Laboratory)		{knx="5/1/1"}
+Switch P_E02_01	"Presencia en Oficina"			<motion>	(Presence, Office)			{knx="5/2/2"}
+Switch P_E03_01	"Presencia en Pasillo"			<motion>	(Presence, Pasillo)			{knx="5/2/3"}

@@ -1,0 +1,273 @@
+///////////////////////////////////////////////////////////////////////////////////////
+///TELEGRAM RULES/////////////////////////////////////////////////////////////////////
+rule "Telegram_Sobre_Voltaje"
+	when
+	  Item batOverVolt changed from OFF to ON
+	then
+		sendTelegram("ComplejoSolarBot", "¡ALERTA! Su batería sobrepasó el límite de tensión.")
+end
+
+rule "Telegram_Sobre_Corriente"
+	when
+	  Item batOverCurr changed from OFF to ON
+	then
+		sendTelegram("ComplejoSolarBot", "¡ALERTA! Su batería sobrepasó el límite de corriente.")
+end
+
+rule "Telegram_Sobre_Temperatura"
+	when
+	  Item batOverTemp changed from OFF to ON
+	then
+		sendTelegram("ComplejoSolarBot", "¡ALERTA! Su batería sobrepasó el límite de temperatura.")
+end
+
+//////////////////////////////////////////////////////////////////////////////////////
+////BATTERY//////////////////////////////////////////////////////////////////////////
+rule "update_bat_volt"
+when
+	Item batVolt changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Bat_Volt_Max, batVolt.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Bat_Volt_Min, batVolt.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_bat_voltage_update_time"
+when
+  Item batVolt received update
+then
+  postUpdate(Bat_Volt_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+rule "update_bat_curr"
+when
+	Item batCurr changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Bat_Curr_Max, batCurr.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Bat_Curr_Min, batCurr.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_bat_current_update_time"
+when
+  Item batCurr received update
+then
+  postUpdate(Bat_Curr_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+rule "update_bat_temp"
+when
+	Item batTemp changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Bat_Temp_Max, batTemp.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Bat_Temp_Min, batTemp.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_bat_temperature_update_time"
+when
+  Item batTemp received update
+then
+  postUpdate(Bat_Temp_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+////SOLAR PANEL//////////////////////////////////////////////////////////////////////////
+rule "update_pan_volt"
+when
+	Item PanVolt changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Pan_Volt_Max, PanVolt.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Pan_Volt_Min, PanVolt.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_voltage_update_time"
+when
+  Item PanVolt received update
+then
+  postUpdate(Pan_Volt_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+rule "update_pan_curr"
+when
+	Item PanCurr changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Pan_Curr_Max, PanCurr.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Pan_Curr_Min, PanCurr.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_current_update_time"
+when
+  Item PanCurr received update
+then
+  postUpdate(Pan_Curr_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+rule "update_pan_temp"
+when
+	Item PanTemp changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Pan_Temp_Max, PanTemp.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Pan_Temp_Min, PanTemp.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item PanTemp received update
+then
+  postUpdate(Pan_Temp_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+rule "update_pan_irrad"
+when
+	Item PanIrrad changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Pan_Irrad_Max, PanIrrad.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Pan_Irrad_Min, PanIrrad.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item PanIrrad received update
+then
+  postUpdate(Pan_Irrad_LastUpdate, new DateTimeType())
+end
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+//////INSIDE CONDITIONS//////////////////////////////
+rule "update_inside_temp"
+when
+	Item Inside_Temperature changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Inside_Temp_Max, Inside_Temperature.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Inside_Temp_Min, Inside_Temperature.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item Inside_Temperature received update
+then
+  postUpdate(Inside_Temp_LastUpdate, new DateTimeType())
+end
+/////////////////////////////////////////////////////////////////////////////////////////////////
+rule "update_inside_humidity"
+when
+	Item Inside_Humidity changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Inside_Hum_Max, Inside_Humidity.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Inside_Hum_Min, Inside_Humidity.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item Inside_Humidity received update
+then
+  postUpdate(Inside_Hum_LastUpdate, new DateTimeType())
+end
+/////////////////////////////////////////////////////////////////////////////////////////////////
+rule "update_inside_co2"
+when
+	Item Inside_CO2 changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Inside_Hum_Max, Inside_CO2.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Inside_Hum_Min, Inside_CO2.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item Inside_CO2 received update
+then
+  postUpdate(Inside_CO2_LastUpdate, new DateTimeType())
+end
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////OUTSIDE CONDITIONS///////////////////////////////////////////////////////////////////
+rule "update_outside_temp"
+when
+	Item Outside_Temperature changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Outside_Temp_Max, Outside_Temperature.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Outside_Temp_Min, Outside_Temperature.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item Outside_Temperature received update
+then
+  postUpdate(Outside_Temp_LastUpdate, new DateTimeType())
+end
+////////////////////////////////////////////////////////////////////////////////////////////////////
+rule "update_outside_light"
+when
+	Item Outside_lux changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Outside_lux_Max, Outside_lux.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Outside_lux_Min, Outside_lux.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item Outside_lux received update
+then
+  postUpdate(Outside_lux_LastUpdate, new DateTimeType())
+end
+/////////////////////////////////////////////////////////////////////////////////////////////////
+rule "update_outside_windspeed"
+when
+	Item Outside_windspeed changed or
+	Time cron "0 0 0 * * ?" or
+	System started
+then
+	postUpdate(Outside_windspeed_Max, Outside_windspeed.maximumSince(now.withTimeAtStartOfDay).state)
+	postUpdate(Outside_windspeed_Min, Outside_windspeed.minimumSince(now.withTimeAtStartOfDay).state)
+end
+
+// Crea un item para guardar la hora de la ultima actualizacion
+rule "Records_last_pan_temperature_update_time"
+when
+  Item Outside_windspeed received update
+then
+  postUpdate(Outside_windspeed_LastUpdate, new DateTimeType())
+end

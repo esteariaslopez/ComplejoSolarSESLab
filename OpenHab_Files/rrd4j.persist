@@ -1,0 +1,36 @@
+Strategies {
+	// for rrd charts, we need a cron strategy
+        everyMinute : "0 * * * * ?"
+        everyHour	: "0 0 * * * ?"
+}
+
+Items {
+
+	///Sensores de humedad
+	luz, H_E07_01, H_E08_01, g_humedad : strategy = everyUpdate, everyChange, everyMinute
+	
+	//Sensores de temperatura
+	T_E07_01, T_E08_01, EM_T_E09_01, g_temp : strategy = everyUpdate, everyChange, everyMinute
+	
+	//Sensores de CO2
+	CO2_E07_01, CO2_E08_01, g_CO2 : strategy = everyUpdate, everyChange, everyMinute
+
+/////////////////////////////BATTERY MONITOR//////////////////////
+	batVolt : strategy = everyUpdate, everyChange, everyMinute
+	batCurr : strategy = everyUpdate, everyChange, everyMinute
+	batTemp : strategy = everyUpdate, everyChange, everyMinute
+////////////////////////////PANEL MONITOR///////////////////////
+	PanVolt	: strategy = everyUpdate, everyChange, everyMinute
+	PanCurr	: strategy = everyUpdate, everyChange, everyMinute
+	PanTemp	: strategy = everyUpdate, everyChange, everyMinute
+	PanIrrad: strategy = everyUpdate, everyChange, everyMinute
+////////////////////////////INSIDE CONDITIONS///////////////////////
+	Inside_Temperature	: strategy = everyUpdate, everyChange, everyMinute
+	Inside_Humidity		: strategy = everyUpdate, everyChange, everyMinute
+	Inside_CO2			: strategy = everyUpdate, everyChange, everyMinute
+////////////////////////////OUTSIDE CONDITIONS///////////////////////
+	Outside_Temperature	: strategy = everyUpdate, everyChange, everyMinute
+	Outside_lux		: strategy = everyUpdate, everyChange, everyMinute
+	Outside_windspeed	: strategy = everyUpdate, everyChange, everyMinute
+
+}

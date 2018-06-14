@@ -1,0 +1,275 @@
+
+ sitemap ComplejoSolar label="Complejo Solar (Demo)" 
+{
+	Frame label="Energia" {
+		Text item=Battery {
+			Text item=batVolt {
+				Frame {
+						Text item=Bat_Volt_Max 
+						Text item=Bat_Volt_Min 
+						Text item=Bat_Volt_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Bat_Volt_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=batVolt period=h refresh=300 visibility=[Bat_Volt_Chart_Period==0, Bat_Volt_Chart_Period=="Uninitialized"]
+					Chart item=batVolt period=D refresh=300 visibility=[Bat_Volt_Chart_Period==1]
+					Chart item=batVolt period=W refresh=300 visibility=[Bat_Volt_Chart_Period==2]
+				}
+			}
+			
+			Text item=batCurr {
+				Frame {
+						Text item=Bat_Curr_Max 
+						Text item=Bat_Curr_Min
+						Text item=Bat_Curr_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Bat_Curr_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Bat_Curr_Chart period=h refresh=30 visibility=[Bat_Curr_Chart_Period==0, Bat_Curr_Chart_Period=="Uninitialized"]
+					Chart item=Bat_Curr_Chart period=D refresh=300 visibility=[Bat_Curr_Chart_Period==1]
+					Chart item=Bat_Curr_Chart period=W refresh=300 visibility=[Bat_Curr_Chart_Period==2]
+				}
+			}
+			
+			Text item=batTemp {
+				Frame {
+						Text item=Bat_Temp_Max 
+						Text item=Bat_Temp_Min
+						Text item=Bat_Temp_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Bat_Temp_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Bat_Temp_Chart period=h refresh=300 visibility=[Bat_Temp_Chart_Period==0, Bat_Temp_Chart_Period=="Uninitialized"]
+					Chart item=Bat_Temp_Chart period=D refresh=300 visibility=[Bat_Temp_Chart_Period==1]
+					Chart item=Bat_Temp_Chart period=W refresh=300 visibility=[Bat_Temp_Chart_Period==2]
+				}
+			}
+			
+			//Group item=BatAlarms
+			
+			Frame label="Alarmas" {
+				Switch item=batOverVolt	
+				Switch item=batOverCurr	
+				Switch item=batOverTemp
+			}
+/*				
+				Group BatAlarms
+
+				Text label="Voltaje"		visibility=[batOverVolt==1]
+				Text label="Corriente"		visibility=[batOverCurr==1]
+				Text label="Temperatura"	visibility=[batOverTemp==1]	
+	
+	
+				Text label="Voltaje Ok"		visibility=[batOverVolt==0, batOverVolt=="Uninitialized"]
+				Text label="Corriente Ok" 	visibility=[batOverCurr==0, batOverCurr=="Uninitialized"]
+				Text label="Temperatura Ok" 	visibility=[batOverTemp==0, batOverTemp=="Uninitialized"]	
+			}*/
+		
+		////////////////////////////
+		}
+		Text item=SolarPanel {
+			Text item=PanVolt {
+				Frame {
+						Text item=Pan_Volt_Max 
+						Text item=Pan_Volt_Min 
+						Text item=Pan_Volt_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Pan_Volt_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Pan_Volt_Chart period=h refresh=300 visibility=[Pan_Volt_Chart_Period==0, Pan_Volt_Chart_Period=="Uninitialized"]
+					Chart item=Pan_Volt_Chart period=D refresh=300 visibility=[Pan_Volt_Chart_Period==1]
+					Chart item=Pan_Volt_Chart period=W refresh=300 visibility=[Pan_Volt_Chart_Period==2]
+				}
+			}
+			
+			Text item=PanCurr {
+				Frame {
+						Text item=Pan_Curr_Max 
+						Text item=Pan_Curr_Min
+						Text item=Pan_Curr_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Pan_Curr_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Pan_Curr_Chart period=h refresh=300 visibility=[Pan_Curr_Chart_Period==0, Pan_Curr_Chart_Period=="Uninitialized"]
+					Chart item=Pan_Curr_Chart period=D refresh=300 visibility=[Pan_Curr_Chart_Period==1]
+					Chart item=Pan_Curr_Chart period=W refresh=300 visibility=[Pan_Curr_Chart_Period==2]
+				}
+			}
+			
+			Text item=PanTemp {
+				Frame {
+						Text item=Pan_Temp_Max 
+						Text item=Pan_Temp_Min
+						Text item=Pan_Temp_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Pan_Temp_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Pan_Temp_Chart period=h refresh=300 visibility=[Pan_Temp_Chart_Period==0, Pan_Temp_Chart_Period=="Uninitialized"]
+					Chart item=Pan_Temp_Chart period=D refresh=300 visibility=[Pan_Temp_Chart_Period==1]
+					Chart item=Pan_Temp_Chart period=W refresh=300 visibility=[Pan_Temp_Chart_Period==2]
+				}
+			}
+			
+			Text item=PanIrrad {
+				Frame {
+						Text item=Pan_Irrad_Max 
+						Text item=Pan_Irrad_Min
+						Text item=Pan_Irrad_LastUpdate
+				}
+				Frame label="Historial" {		
+					Switch item=Pan_Irrad_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Pan_Irrad_Chart period=h refresh=300 visibility=[Pan_Irrad_Chart_Period==0, Pan_Irrad_Chart_Period=="Uninitialized"]
+					Chart item=Pan_Irrad_Chart period=D refresh=300 visibility=[Pan_Irrad_Chart_Period==1]
+					Chart item=Pan_Irrad_Chart period=W refresh=300 visibility=[Pan_Irrad_Chart_Period==2]
+				}
+			}
+			
+			Frame label="Alarmas" {
+				Default item=panOverVolt
+				Default item=panOverCurr
+				Default item=panOverTemp
+			}
+		
+		////////////////////////////
+		}
+	}
+	
+	Frame label="Edificio" {
+		Group 	item=Laboratory
+		Group	item=Office
+		Group	item=Pasillo
+		Group	item=ElectricRoom
+	}
+	
+	Frame label="General" {
+		Group item=Light
+		Group item=Presence		
+		
+		Text label="Condiciones Internas" icon="humidity" {
+			Text item=Inside_Temperature label="Temperatura" {
+				Frame {
+						Text item=Inside_Temp_Max 
+						Text item=Inside_Temp_Min 
+						Text item=Inside_Temp_LastUpdate 
+				}
+				Frame label="Historial" {		
+					Switch item=Inside_Temp_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Inside_Temp_Chart period=h refresh=300 visibility=[Inside_Temp_Chart_Period==0, Inside_Temp_Chart_Period=="Uninitialized"]
+					Chart item=Inside_Temp_Chart period=D refresh=300 visibility=[Inside_Temp_Chart_Period==1]
+					Chart item=Inside_Temp_Chart period=W refresh=300 visibility=[Inside_Temp_Chart_Period==2]
+				}
+			}
+		
+			Text item=Inside_Humidity label="Humedad Relativa" {
+				Frame {
+						Text item=Inside_Hum_Max 
+						Text item=Inside_Hum_Min 
+						Text item=Inside_Hum_LastUpdate 
+				}
+				Frame label="Historial" {		
+					Switch item=Inside_Hum_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Inside_Hum_Chart period=h refresh=300 visibility=[Inside_Hum_Chart_Period==0, Inside_Hum_Chart_Period=="Uninitialized"]
+					Chart item=Inside_Hum_Chart period=D refresh=300 visibility=[Inside_Hum_Chart_Period==1]
+					Chart item=Inside_Hum_Chart period=W refresh=300 visibility=[Inside_Hum_Chart_Period==2]
+				}
+			}
+		
+			Text item=Inside_CO2 label="Calidad del aire" {
+				Frame {
+						Text item=Inside_CO2_Max 
+						Text item=Inside_CO2_Min 
+						Text item=Inside_CO2_LastUpdate 
+				}
+				Frame label="Historial" {		
+					Switch item=Inside_CO2_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+					Chart item=Inside_CO2_Chart period=h refresh=300 visibility=[Inside_CO2_Chart_Period==0, Inside_CO2_Chart_Period=="Uninitialized"]
+					Chart item=Inside_CO2_Chart period=D refresh=300 visibility=[Inside_CO2_Chart_Period==1]
+					Chart item=Inside_CO2_Chart period=W refresh=300 visibility=[Inside_CO2_Chart_Period==2]
+				}
+			}
+		}
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////		
+		Text label="Condiciones Externas" icon="sun_clouds" {
+				Text item=Outside_Temperature {
+					Frame {
+							Text item=Outside_Temp_Max 
+							Text item=Outside_Temp_Min 
+							Text item=Outside_Temp_LastUpdate 
+					}
+					Frame label="Historial" {		
+						Switch item=Outside_Temp_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+						Chart item=Outside_Temp_Chart period=h refresh=300 visibility=[Outside_Temp_Chart_Period==0, Outside_Temp_Chart_Period=="Uninitialized"]
+						Chart item=Outside_Temp_Chart period=D refresh=300 visibility=[Outside_Temp_Chart_Period==1]
+						Chart item=Outside_Temp_Chart period=W refresh=300 visibility=[Outside_Temp_Chart_Period==2]
+					}
+				}
+			
+				Text item=Outside_lux {
+					Frame {
+							Text item=Outside_lux_Max 
+							Text item=Outside_lux_Min 
+							Text item=Outside_lux_LastUpdate 
+					}
+					Frame label="Historial" {		
+						Switch item=Outside_lux_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+						Chart item=Outside_lux_Chart period=h refresh=300 visibility=[Outside_lux_Chart_Period==0, Outside_lux_Chart_Period=="Uninitialized"]
+						Chart item=Outside_lux_Chart period=D refresh=300 visibility=[Outside_lux_Chart_Period==1]
+						Chart item=Outside_lux_Chart period=W refresh=300 visibility=[Outside_lux_Chart_Period==2]
+					}
+				}
+			
+				Text item=Outside_windspeed {
+					Frame {
+							Text item=Outside_windspeed_Max 
+							Text item=Outside_windspeed_Min 
+							Text item=Outside_windspeed_LastUpdate 
+					}
+					Frame label="Historial" {		
+						Switch item=Outside_windspeed_Chart_Period  mappings=[0="Hora", 1="Día", 2="Semana"]
+						Chart item=Outside_windspeed_Chart period=h refresh=300 visibility=[Outside_windspeed_Chart_Period==0, Outside_windspeed_Chart_Period=="Uninitialized"]
+						Chart item=Outside_windspeed_Chart period=D refresh=300 visibility=[Outside_windspeed_Chart_Period==1]
+						Chart item=Outside_windspeed_Chart period=W refresh=300 visibility=[Outside_windspeed_Chart_Period==2]
+					}
+				}
+				Switch item=Outside_Rain
+		}
+	}
+	
+	Frame label="Otros"{
+		Group item=Alarms
+		Group item=Settings {
+			Frame item=BatSettings {
+				Frame label="Envío Cíclico"{
+					Switch item=batColtCycSend
+					Switch item=batCurrCycSend
+					Switch item=batTempCycSend
+				}
+				Frame label="Periodo de envío" {
+					Switch item=batTimeBase
+					Setpoint item=batTimeBaseMulti minValue=1 maxValue=255 step=1
+				}
+				Frame label="Configuración de Alarmas"{
+					Setpoint item=batThAlarmVolt minValue=5 maxValue=60 step=0.5
+					Setpoint item=batThAlarmCurr minValue=1 maxValue=60 step=0.5
+					Setpoint item=batThAlarmTemp minValue=1 maxValue=80 step=1
+				}
+				
+			}
+			Frame item=PanSettings {
+				Frame label="Envío Cíclico"{
+					Switch item=panColtCycSend
+					Switch item=panCurrCycSend
+					Switch item=panTempCycSend
+					Switch item=panIrradCycSend
+				}
+				Frame label="Periodo de envío" {
+					Switch item=panTimeBase
+					Setpoint item=panTimeBaseMulti minValue=1 maxValue=255 step=1
+				}
+			}
+			
+		}
+	}
+}	
+
