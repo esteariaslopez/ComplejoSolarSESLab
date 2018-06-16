@@ -12,14 +12,14 @@
 
 ////////GLOBAL VARIABLES//////////////////
 ///Definicion de pines/////
-const int batVoltPIN = 0;
+const int batVoltPIN = 2;
 const int batCurrPIN = 1;
-const int batTempPIN = 2;
+const int batTempPIN = 6;
 
-const int panVoltPIN = 8;
-const int panCurrPIN = 9;
-const int panTempPIN = 10;
-const int panIrradPIN = 11;
+const int panVoltPIN = 3;
+const int panCurrPIN = 4;
+const int panTempPIN = 5;
+const int panIrradPIN = 0;
 
 /////BATERIA//////////////////
 double batVOLTAGE = 0;  //VALOR FISICO DE VOLTAJE EN BATERIA
@@ -48,7 +48,7 @@ int panTimeBase = 1;      //BASE DE TIEMPO DE LECTURA DEL PANEL
 
 boolean panVolt_CycSend = false; //Envio ciclico del valor de tension
 boolean panCurr_CycSend = false; //Envio ciclico del valor de corriente
-boolean panTemp_CycSend = true; //Envio ciclico del valor de temperatura
+boolean panTemp_CycSend = false; //Envio ciclico del valor de temperatura
 boolean panIrrad_CycSend = false; //Envio ciclico del valor de irradiancia
 
 /////////////////////////////////////////////////
